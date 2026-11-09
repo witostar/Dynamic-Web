@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Window Seat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="page">
+
+  <!-- background stars and the sunrise/sunset popup -->
+  <div id="stars"></div>
+  <div id="toast"></div>
+
+  <!-- start screen (a click is needed before the browser allows sound) -->
+  <div id="intro">
+    <p class="kicker">Live from 400 km above Earth</p>
+    <h1>Window Seat</h1>
+    <p>Right now, astronauts are circling Earth at 28,000 km/h. Take the window seat on the International Space Station and see what they see, as it happens.</p>
+    <button id="startBtn">🚀 Take your seat</button>
+    <p class="small">🎧 Sound on for the full experience</p>
+  </div>
+
+  <header>
+    <h1 id="title">Window Seat</h1>
+    <p id="status"><span class="live-dot"></span> Connecting to the ISS...</p>
+  </header>
+
+  <main class="layout">
+
+    <!-- the porthole: the Earth images move with the ISS -->
+    <section class="window-side">
+      <div id="window">
+        <div id="earthDay" class="earth"></div>
+        <div id="earthNight" class="earth"></div>
+        <div class="glass"></div>
+        <div class="hud">
+          <span>Now passing over</span>
+          <p id="place">...</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="soundBtn">🔇 Sound off</button>
+        <button id="zoomBtn">🔍 Zoom: 4x</button>
+      </div>
+    </section>
+
+    <!-- live data and the mini map -->
+    <section class="panel">
+      <div class="cards">
+        <div class="card">
+          <h3>Speed</h3>
+          <p class="big" id="speed">--</p>
+        </div>
+        <div class="card">
+          <h3>Altitude</h3>
+          <p class="big" id="altitude">--</p>
+        </div>
+        <div class="card">
+          <h3>Outside</h3>
+          <p class="big" id="sunlight">--</p>
+        </div>
+        <div class="card">
+          <h3>Position</h3>
+          <p class="big" id="position">--</p>
+        </div>
+      </div>
+
+      <div class="card wide">
+        <h3>Distance from <span id="homeName">UTM</span></h3>
+        <p class="big" id="distance">--</p>
+        <div class="meter"><div id="meterFill"></div></div>
+        <p id="distanceText">Waiting for the ISS...</p>
+      </div>
+
+      <div id="miniMap">
+        <div id="trail"></div>
+        <div id="homePin">📍</div>
+        <div id="dot"></div>
+      </div>
+      <p class="hint">👆 Your home starts at UTM. Click the map to move it anywhere.</p>
+      <button id="resetBtn">🏫 Back to UTM</button>
+    </section>
+
+  </main>
+
+  <!-- explains how the data becomes the design -->
+  <section class="legend">
+    <h2>How the data shapes your view</h2>
+    <div class="legend-items">
+      <p><span>🪟 The view</span> The ISS's live position slides the real Earth across your window.</p>
+      <p><span>🌗 Day &amp; night</span> When the ISS enters Earth's shadow, the view fades to city lights, the page goes dark and the hum gets deeper.</p>
+      <p><span>🏠 Distance from home</span> The closer the ISS gets to your home, the warmer the glow, the fuller the bar and the louder the hum.</p>
+      <p><span>🗺️ Place</span> A second API turns the coordinates into the name of the ocean or country below you.</p>
+      <p><span>🌅 Events</span> A message pops up at every sunrise and sunset in space (about 16 a day).</p>
+    </div>
+  </section>
+
+  <p class="credits">
+    Live data: Where the ISS at? API (wheretheiss.at) · Place names: BigDataCloud Reverse Geocoding API<br>
+    Earth images: Solar System Scope, based on NASA data (CC BY 4.0) · Sound: "space station" by Gravity Sound (CC BY 4.0), via Wikimedia Commons · Fonts: Google Fonts<br>
+    Updates received: <span id="count">0</span> · Sunrises seen: <span id="sunrises">0</span> · Sunsets seen: <span id="sunsets">0</span>
+  </p>
+
+  <audio id="hum" src="audio/station-hum.m4a" loop></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
